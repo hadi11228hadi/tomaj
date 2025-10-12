@@ -11,7 +11,7 @@ from io import BytesIO
 BOT_TOKEN = os.environ.get('BOT_TOKEN', '8107400983:AAFEasyG1_7CNKfoJHhpCWZOWMT9i641xYg')
 CHAT_ID = os.environ.get('CHAT_ID', '-1003165080225')
 PORT = int(os.environ.get('PORT', 5000))
-UPDATE_INTERVAL = 300  # 5 دقیقه
+UPDATE_INTERVAL = 60  # 1 دقیقه  <--- اینجا تغییر کرد
 
 bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
@@ -116,7 +116,7 @@ def create_and_send_file(transactions):
         print(f"❌ Error sending file: {e}")
 
 def send_periodic_updates():
-    """ارسال دوره‌ای هر 5 دقیقه"""
+    """ارسال دوره‌ای هر 1 دقیقه"""  # <--- اینجا هم تغییر کرد
     while True:
         try:
             print(f"🔄 Checking transactions at {datetime.now().strftime('%H:%M:%S')}")
@@ -134,7 +134,7 @@ def send_periodic_updates():
         except Exception as e:
             print(f"❌ Error in periodic update: {e}")
         
-        # انتظار 5 دقیقه
+        # انتظار 1 دقیقه  <--- اینجا هم تغییر کرد
         time.sleep(UPDATE_INTERVAL)
 
 @app.route('/')
@@ -148,13 +148,13 @@ def health():
 # اجرای ربات
 if __name__ == "__main__":
     print("🤖 TRON Transaction Bot Started")
-    print(f"⏰ Update interval: {UPDATE_INTERVAL} seconds")
+    print(f"⏰ Update interval: {UPDATE_INTERVAL} seconds")  # <--- اینجا اتوماتیک عوض میشه
     print("📁 Sending only TXT files")
     print("🔍 Filter: Amount > 0 TRX")
     
     # تست اولیه
     try:
-        bot.send_message(CHAT_ID, "🤖 TRON Transaction Bot Started\n⏰ Updates every 5 minutes\n📁 Only TXT files with transactions > 0 TRX")
+        bot.send_message(CHAT_ID, "🤖 TRON Transaction Bot Started\n⏰ Updates every 1 minute\n📁 Only TXT files with transactions > 0 TRX")  # <--- اینجا هم تغییر کرد
         print("✅ Channel access confirmed!")
     except Exception as e:
         print(f"❌ Channel access error: {e}")
